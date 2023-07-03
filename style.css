@@ -69,3 +69,25 @@ ul li {
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
+
+.drop {
+  padding: 20px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  display: flex;
+  color: #DCE1EB;
+  visibility: hidden;
+}
+
+.drop img {
+  width: 50px;
+}
+
+.visible {
+  visibility: visible;
+}
+
+.hide {
+  visibility: hidden;
+}

@@ -4,7 +4,7 @@ import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-
 const inputField = document.getElementById('input-field');
 const addBtn = document.getElementById('add-button');
 let groceriesList = document.getElementById('groceries-list');
-
+let trashDog = document.getElementById('drop-target');
 
 const appSettings = {
     databaseURL: 'https://playground-44767-default-rtdb.firebaseio.com/',
@@ -72,7 +72,21 @@ function appendItemTogroceriesList(list, val) {
     groceriesItem.appendChild(document.createTextNode(itemValue));
     list.appendChild(groceriesItem);
 
-    groceriesItem.addEventListener("dblclick", function() {
+    groceriesItem.setAttribute('id', `${itemID}`);
+    groceriesItem.setAttribute('draggable', `${true}`);
+
+    groceriesItem.addEventListener('dragstart', dragStart);
+
+    function dragStart(e) {
+    e.dataTransfer.setData('text/plain', e.target.id);
+    setTimeout(() => {
+        e.target.classList.add('hide');
+        trashDog.classList.add('visible');
+    }, 0);
+}
+
+
+      groceriesItem.addEventListener("dblclick", function() {
         let locationInDb = ref(database, `groceries/${itemID}`);
         remove(locationInDb);
     })
