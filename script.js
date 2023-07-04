@@ -1,21 +1,28 @@
+// Importing database from Firebase
 import {getDatabase, ref, push, onValue, remove} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js';
 import {initializeApp} from 'https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js';
 
+// Input field
 const inputField = document.getElementById('input-field');
+//Button Add
 const addBtn = document.getElementById('add-button');
+// Ul parent element
 let groceriesList = document.getElementById('groceries-list');
+// Trashdog parent element
 let trashDog = document.getElementById('drop-target');
-
+// TrashImage child element
+let trashImage = document.getElementById('drop-image');
+// Database URL
 const appSettings = {
     databaseURL: 'https://playground-44767-default-rtdb.firebaseio.com/',
 }
-
+// Initialize app
 const app = initializeApp(appSettings);
 
 const database = getDatabase(app);
-
+// Create groceries array
 const groceriesInDB = ref(database, "groceries")
-
+// Add button event listener on click
 addBtn.addEventListener('click', addValue);
 
 onValue(groceriesInDB, function(snapshot) {
@@ -23,8 +30,6 @@ onValue(groceriesInDB, function(snapshot) {
     if (snapshot.exists()) {
 
         let groceriesArr = Object.entries(snapshot.val());
-
-        // console.log(snapshot.val())
     
         clearGroceriesEl(groceriesList);
     
@@ -37,7 +42,7 @@ onValue(groceriesInDB, function(snapshot) {
     }
 
 })
-
+// push value to the groceries database
 function addValue() {
 
     let inputValue = inputField.value;
@@ -46,21 +51,20 @@ function addValue() {
 
     clearInput(inputField);
 }
-
+// Clear ul parent element
 function clearGroceriesEl(el) {
     el.innerHTML = "";
 }
-
+// Clear input
 function clearInput(input) {
     input.value = "";
 }
-
+// Iterate over each item of the array
 function IterateEachItem(arr) {
     for (let i = 0; i < arr.length; i++) {
         let currentItem = arr[i];
-
+        // Append current item to the groceries list
         appendItemTogroceriesList(groceriesList, currentItem);
-
     }
 }
 
@@ -77,14 +81,41 @@ function appendItemTogroceriesList(list, val) {
 
     groceriesItem.addEventListener('dragstart', dragStart);
 
+    groceriesItem.addEventListener('dragend', dragEnd);
+
+
+    trashImage.addEventListener('dragleave', function(e) {
+        dragLeave(e);
+    });
+    
+
     function dragStart(e) {
     e.dataTransfer.setData('text/plain', e.target.id);
     setTimeout(() => {
-        e.target.classList.add('hide');
+        e.target.classList.add('hidden');
         trashDog.classList.add('visible');
+
+        trashImage.addEventListener('dragover', function() {
+            trashImage.style.width = "60px";
+        })
     }, 0);
 }
 
+function dragLeave(e) {
+    let itemID = e.dataTransfer.getData('text/plain');
+
+    let locationInDb = ref(database, `groceries/${itemID}`);
+    remove(locationInDb);
+
+    trashDog.classList.remove('visible');
+}
+
+function dragEnd() {
+    groceriesItem.classList.remove('hidden');
+    groceriesItem.classList.add('visible');
+    trashDog.classList.remove('visible');
+
+}
 
       groceriesItem.addEventListener("dblclick", function() {
         let locationInDb = ref(database, `groceries/${itemID}`);

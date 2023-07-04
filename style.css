@@ -14,6 +14,7 @@ html, body {
   margin: 60px auto;
   /* border: solid #000 6px; */
   border-radius: 10px;
+  padding: 0px 10px;
 }
 
 .container img {
@@ -56,7 +57,7 @@ ul {
     align-items: center;
     gap: 10px;
     font-size: 20px;
-    padding: 0;
+    padding: 0px 10px;
 }
 
 ul li {
@@ -80,14 +81,27 @@ ul li {
   visibility: hidden;
 }
 
+@keyframes fade-in-out {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .drop img {
   width: 50px;
+  animation: fade-in-out 5s;
 }
 
 .visible {
   visibility: visible;
 }
 
-.hide {
+.hidden {
   visibility: hidden;
 }
