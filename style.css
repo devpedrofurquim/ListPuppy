@@ -180,6 +180,17 @@ ul li {
     width: 200px;
 }
 
+.menu-body #logout-button {
+  width: 70px;
+  font-size: small;
+  white-space: nowrap;
+  padding: 10px;
+  margin-bottom: 40px;
+  position: absolute;
+  bottom: 0;
+}
+
+
 .menu-body button:hover {
   color: var(--text-color-2);
   background-color: #ff9f22;
