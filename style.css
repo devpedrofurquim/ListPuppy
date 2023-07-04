@@ -1,9 +1,23 @@
+:root {
+  --color-1-50: #b35c27;
+  --color-1: #a84f17;
+  --color-2-50: #eb7640;
+  --color-2: #d45113;
+  --color-6: #df1919;
+  --color-3: #f9a03f;
+  --color-4: #DCE1EB;
+  --bg-color: #f8dda4;
+  --text-color-1: #432000;
+  --text-color-2: #FDFDFD;
+  --cor: #df1c1c;
+}
+
 html, body {
     margin: 0;
     padding: 0;
     font-family: 'Rubik', sans-serif;
-    background-color: #EEF0F4;
-    overflow: hidden;
+    background-color: var(--bg-color);
+    overflow-x: hidden;
     user-select: none;
 }
 
@@ -11,20 +25,19 @@ html, body {
   display: flex;
   flex-direction: column;
   max-width: 420px;
-  margin: 60px auto;
-  /* border: solid #000 6px; */
+  margin: 10px auto;
   border-radius: 10px;
   padding: 0px 10px;
 }
 
 .container img {
-  width: 100%;
+  width: 50%;
   margin: 0 auto;
 }
 
 input {
-    color: #432000;
-    background-color: #DCE1EB;
+    color: var(--text-color);
+    background-color: var(--color-4);
     border: 0;
     padding: 15px;
     border-radius: 8px;
@@ -35,8 +48,8 @@ input {
 }
 
 button {
-    color: #FDFDFD;
-    background-color: #AC485A;
+    color: var(--text-color-2);
+    background-color: #e23838;
     border: 0;
     padding: 15px;
     border-radius: 8px;
@@ -47,7 +60,7 @@ button {
 }
 
 button:hover {
-  background-color: #be1937;
+  background-color: #d81b1b;
 }
 
 ul {
@@ -67,35 +80,30 @@ ul li {
     flex-grow: 1;
     list-style: none;
     background-color: #FFFDF8;
+    color: var(--text-color-1);
     box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.2);
     cursor: pointer;
 }
 
-.drop {
+.user-img {
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  margin: 20px auto;
   padding: 20px;
   justify-content: center;
   align-items: center;
   text-align: center;
   display: flex;
   color: #DCE1EB;
-  visibility: hidden;
-}
-
-@keyframes fade-in-out {
-  0% {
-    opacity: 0;
-  }
-  50% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-.drop img {
-  width: 50px;
-  animation: fade-in-out 5s;
+  font-size: 15px;
+  font-weight: bold;
+  background-color: #e63c3c;
+  background-image: url(imgs/shitzu.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
 
 .visible {
@@ -104,4 +112,114 @@ ul li {
 
 .hidden {
   visibility: hidden;
+}
+
+.opacity-0:before {
+  background-color: rgba(0, 0, 0, 0.5); /* Adjust the alpha value (0.5) for desired opacity */
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  visibility: visible;
+}
+
+.menu-container {
+  background-color: #9c3319;
+  z-index: 2;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  visibility: hidden;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+  background-color: #88321d
+}
+
+.menu-header img {
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+
+.menu-header h3 {
+  font-size: 22px;
+  color: var(--text-color-2);
+  margin: 8px;
+}
+
+.menu-body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.menu-body button {
+    font-size: 18px;
+    color: var(--text-color-1);
+    background-color: #ffc16f;
+    border: 0;
+    padding: 15px 60px;
+    margin: 10px;
+    border-radius: 8px;
+    text-align: center;
+    font-family: 'Rubik', sans-serif;
+    cursor: pointer;
+    width: 200px;
+}
+
+.menu-body button:hover {
+  color: var(--text-color-2);
+  background-color: #ff9f22;
+}
+
+
+.menu-fade-in{
+  animation: menu-fade-in 0.5s forwards;
+}
+
+.main-fade-in{
+  animation: main-fade-in 0.5s forwards;
+}
+
+.menu-fade-out{
+  animation: menu-fade-out 0.5s;
+}
+
+.main-fade-out{
+  animation: main-fade-out 0.5s;
+}
+
+@keyframes main-fade-in {
+  0% {
+    opacity: 0%;
+  }
+
+  100% {
+    opacity: 100%;
+  }
+}
+
+@keyframes menu-fade-in {
+  0% {
+    width: 0%;
+    opacity: 0%;
+  }
+
+  100% {
+    width: 70%;
+    opacity: 100%;
+  }
 }

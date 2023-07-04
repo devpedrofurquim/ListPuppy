@@ -8,10 +8,13 @@ const inputField = document.getElementById('input-field');
 const addBtn = document.getElementById('add-button');
 // Ul parent element
 let groceriesList = document.getElementById('groceries-list');
+const userImg = document.getElementById('user-image');
+const menuContainer = document.getElementById('menu');
+const mainContainer = document.getElementById('main-container');
 // Trashdog parent element
-let trashDog = document.getElementById('drop-target');
+// let trashDog = document.getElementById('drop-target');
 // TrashImage child element
-let trashImage = document.getElementById('drop-image');
+// let trashImage = document.getElementById('drop-image');
 // Database URL
 const appSettings = {
     databaseURL: 'https://playground-44767-default-rtdb.firebaseio.com/',
@@ -84,36 +87,36 @@ function appendItemTogroceriesList(list, val) {
     groceriesItem.addEventListener('dragend', dragEnd);
 
 
-    trashImage.addEventListener('dragleave', function(e) {
-        dragLeave(e);
-    });
+    // trashImage.addEventListener('dragleave', function(e) {
+    //     dragLeave(e);
+    // });
     
 
     function dragStart(e) {
     e.dataTransfer.setData('text/plain', e.target.id);
     setTimeout(() => {
         e.target.classList.add('hidden');
-        trashDog.classList.add('visible');
+        // trashDog.classList.add('visible');
 
-        trashImage.addEventListener('dragover', function() {
-            trashImage.style.width = "60px";
-        })
+        // trashImage.addEventListener('dragover', function() {
+        //     // trashImage.style.width = "60px";
+        // })
     }, 0);
 }
 
-function dragLeave(e) {
-    let itemID = e.dataTransfer.getData('text/plain');
+// function dragLeave(e) {
+//     let itemID = e.dataTransfer.getData('text/plain');
 
-    let locationInDb = ref(database, `groceries/${itemID}`);
-    remove(locationInDb);
+//     let locationInDb = ref(database, `groceries/${itemID}`);
+//     remove(locationInDb);
 
-    trashDog.classList.remove('visible');
-}
+//     trashDog.classList.remove('visible');
+// }
 
 function dragEnd() {
     groceriesItem.classList.remove('hidden');
     groceriesItem.classList.add('visible');
-    trashDog.classList.remove('visible');
+    // trashDog.classList.remove('visible');
 
 }
 
@@ -123,9 +126,27 @@ function dragEnd() {
     })
 
     groceriesItem.addEventListener("mouseover", function() {
-        this.style.backgroundColor = '#A78BCB';
+        this.style.backgroundColor = '#df1c1c';
+        this.style.color = '#FDFDFD';
         groceriesItem.addEventListener("mouseout", function() {
             this.style.backgroundColor = "#FFFDF8";
+            this.style.color = '#432000';
         })
     })
 }
+
+userImg.addEventListener('click', function() {
+    menuContainer.style.visibility = "visible";
+    menuContainer.classList.add('menu-fade-in');
+    mainContainer.classList.add('opacity-0');
+    mainContainer.classList.add('main-fade-in');
+    mainContainer.style.cursor = 'pointer';
+
+    mainContainer.addEventListener('click', function() {
+    menuContainer.classList.remove('menu-fade-in');
+    mainContainer.classList.remove('opacity-0');
+    mainContainer.classList.remove('main-fade-in');
+    menuContainer.style.visibility = "hidden";
+    })
+
+})
